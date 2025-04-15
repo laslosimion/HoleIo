@@ -2,7 +2,7 @@ public class MainMenu : State
 {
     public override void Begin()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void End()

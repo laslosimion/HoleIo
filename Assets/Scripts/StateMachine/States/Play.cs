@@ -5,12 +5,14 @@ using UnityEngine;
 public class Play : State
 {
     [SerializeField] private Level[] _levels;
+    [SerializeField] private PlayerController _playerController;
 
     private int _currentLevelCounter = 0;
     
     public override void Begin()
     {
-        Instantiate(_levels[_currentLevelCounter]);
+        //Instantiate(_levels[_currentLevelCounter]);
+        _playerController.Initialize();
     }
 
     public override void End()

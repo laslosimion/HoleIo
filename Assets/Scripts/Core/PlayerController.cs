@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,14 +7,46 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler, IPointerMove
 {
     private const float MinMovementForTrigger = 10f;
 
+    [SerializeField] private UIInputDetector _inputDetector;
+
     private Player _player;
     private Vector2 _middlePosition;
     private bool _isPointerDown;
+    private Vector2 _initialPosition;
 
     public void Initialize()
     {
-        _middlePosition = transform.position;
+        _initialPosition = transform.position;
+        UpdateMiddlePosition();
+        
         _player = FindObjectOfType<Player>();
+        
+        _inputDetector.PointerDown +=InputDetector_OnPointerDown;
+        _inputDetector.PointerUp +=InputDetector_OnPointerUp;
+    }
+
+    private void OnDestroy()
+    {
+        _inputDetector.PointerDown -=InputDetector_OnPointerDown;
+        _inputDetector.PointerUp -=InputDetector_OnPointerUp;
+    }
+
+    private void UpdateMiddlePosition()
+    {
+        _middlePosition = transform.position;
+    }
+
+    private void InputDetector_OnPointerDown(PointerEventData eventData)
+    {
+        _isPointerDown = true;
+        transform.position = eventData.position;
+
+        UpdateMiddlePosition();
+    }
+    
+    private void InputDetector_OnPointerUp(PointerEventData eventData)
+    {
+        OnPointerUp(eventData);
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -31,21 +61,26 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler, IPointerMove
 
         var yDifference = _middlePosition.y - eventData.position.y;
         var moveOnY = Mathf.Abs(yDifference) > MinMovementForTrigger;
-        var rectTransform = GetComponent<RectTransform>();
-        var maxY = rectTransform.sizeDelta.y / 2;
-        var currentYPercentage = 100 * Mathf.Abs(yDifference) / maxY;
         
         var xDifference = _middlePosition.x - eventData.position.x;
         var moveOnX = Mathf.Abs(xDifference) > MinMovementForTrigger;
-        var maxX = rectTransform.sizeDelta.y / 2;
-        var currentXPercentage = 100 * Mathf.Abs(xDifference) / maxY;
 
-        if (moveOnX || moveOnY)
-            _player.Move(new Vector3(xDifference, 0.0001f, yDifference));
+        if (!moveOnX && !moveOnY)
+        {
+            _player.StopMoving();
+            return;
+        }
+
+        var normalizedVector = new Vector3(xDifference, 0, yDifference);
+        _player.Move(normalizedVector);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         _isPointerDown = false;
+        _player.StopMoving();
+
+        transform.position = _initialPosition;
+        UpdateMiddlePosition();
     }
 }

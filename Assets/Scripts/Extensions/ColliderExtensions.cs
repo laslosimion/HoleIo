@@ -1,0 +1,14 @@
+using UnityEngine;
+
+public static class ColliderExtensions
+{
+    public static bool Contains(this Collider collider, Vector3 worldPosition)
+    {
+        var direction = collider.bounds.center - worldPosition;
+        var ray = new Ray(worldPosition, direction);
+          
+        var contains = collider.Raycast(ray, out var hit, direction.magnitude);
+
+        return contains;
+    }
+}

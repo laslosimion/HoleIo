@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Player : MonoBehaviour
 {
@@ -20,7 +22,16 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        var cachedTransform = transform;
-        cachedTransform.position += new Vector3(_xMoveSpeed, 0, _zMoveSpeed);
+        transform.position += new Vector3(_xMoveSpeed, 0, _zMoveSpeed);
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        var distance = Vector3.Distance(transform.position, other.transform.position);
+        var boxCollider = other.collider as BoxCollider;
+        if (boxCollider != null && distance < boxCollider.size.x)
+            other.gameObject.GetComponent<Rigidbody>().useGravity = true;
+
+        Debug.Log($"Distance {distance} size: {boxCollider.size.x}");
     }
 }

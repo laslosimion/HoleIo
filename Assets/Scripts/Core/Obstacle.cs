@@ -7,11 +7,11 @@ public class Obstacle : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter");
+        //Debug.Log("OnTriggerEnter");
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log("OnCollisionEnter");
+        //Debug.Log("OnCollisionEnter");
     }
 }

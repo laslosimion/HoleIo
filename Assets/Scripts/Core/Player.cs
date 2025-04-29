@@ -5,12 +5,18 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private const float SpeedDeMultiplier = 1000f;
+    private const float ScaleIncreaseDeMultiplier = 10f;
+    
+    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private BoxCollider _boxCollider;
     
     private float _xMoveSpeed;
     private float _zMoveSpeed;
 
     public void Move(Vector3 offset)
     {
+        _rigidbody.isKinematic = false;
+        
         _xMoveSpeed = -offset.x / SpeedDeMultiplier;
         _zMoveSpeed = -offset.z / SpeedDeMultiplier;
     }
@@ -18,6 +24,8 @@ public class Player : MonoBehaviour
     public void StopMoving()
     {
         _xMoveSpeed = _zMoveSpeed = 0;
+        
+        _rigidbody.isKinematic = true;
     }
 
     private void Update()
@@ -27,11 +35,40 @@ public class Player : MonoBehaviour
 
     private void OnCollisionStay(Collision other)
     {
-        var distance = Vector3.Distance(transform.position, other.transform.position);
-        var boxCollider = other.collider as BoxCollider;
-        if (boxCollider != null && distance < boxCollider.size.x)
-            other.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        var otherCollider = other.collider as BoxCollider;
 
-        Debug.Log($"Distance {distance} size: {boxCollider.size.x}");
+        if (otherCollider != null)
+        {
+            var trans = otherCollider.transform;
+            var min = otherCollider.center - otherCollider.size * 0.5f;
+            var max = otherCollider.center + otherCollider.size * 0.5f;
+
+            var leftBottomBackPoint = trans.TransformPoint(new Vector3(min.x, min.y, min.z));
+            // var P001 = trans.TransformPoint(new Vector3(min.x, min.y, max.z));
+            // var P010 = trans.TransformPoint(new Vector3(min.x, max.y, min.z));
+            // var P011 = trans.TransformPoint(new Vector3(min.x, max.y, max.z));
+            // var P100 = trans.TransformPoint(new Vector3(max.x, min.y, min.z));
+            var rightBottomFrontPoint = trans.TransformPoint(new Vector3(max.x, min.y, max.z));
+            // var P110 = trans.TransformPoint(new Vector3(max.x, max.y, min.z));
+            // var P111 = trans.TransformPoint(new Vector3(max.x, max.y, max.z));
+
+            if (!_boxCollider.Contains(leftBottomBackPoint) || !_boxCollider.Contains(rightBottomFrontPoint))
+                return;
+        }
+        else
+            return;
+
+        if (otherCollider != null) 
+            otherCollider.GetComponent<Rigidbody>().useGravity = true;
+
+        IncreaseSize(other.transform.localScale.x, other.transform.localScale.z);
+    }
+
+    private void IncreaseSize(float x, float y)
+    {
+        var localScale = transform.localScale;
+        localScale = new Vector3(localScale.x + x / ScaleIncreaseDeMultiplier, localScale.y + y / ScaleIncreaseDeMultiplier, localScale.z);
+        
+        transform.localScale = localScale;
     }
 }

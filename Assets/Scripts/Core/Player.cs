@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
             return;
 
         if (otherCollider != null) 
-            otherCollider.GetComponent<Rigidbody>().useGravity = true;
+            otherCollider.GetComponent<Rigidbody>().isKinematic = false;
 
         IncreaseSize(other.transform.localScale.x, other.transform.localScale.z);
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private const float SpeedDeMultiplier = 1000f;
-    private const float ScaleIncreaseDeMultiplier = 10f;
+    private const float ScaleIncreaseDeMultiplier = 35f;
     
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private BoxCollider _boxCollider;

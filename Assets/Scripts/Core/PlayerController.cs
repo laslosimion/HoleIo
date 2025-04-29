@@ -71,8 +71,8 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler, IPointerMove
             return;
         }
 
-        var normalizedVector = new Vector3(xDifference, 0, yDifference);
-        _player.Move(normalizedVector);
+        var moveVector = new Vector3(xDifference / 3, 0, yDifference / 3);
+        _player.Move(moveVector);
     }
 
     public void OnPointerUp(PointerEventData eventData)

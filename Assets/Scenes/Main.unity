@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 310696553}
   - component: {fileID: 310696554}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Road horizontal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 714387085}
   - component: {fileID: 714387086}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: Road vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1969,14 +1969,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1379070831228396067, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4861002751948147801, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 5858558012645510238, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 90
@@ -1988,14 +1980,6 @@ PrefabInstance:
     - target: {fileID: 5858558012645510238, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440258047611174353, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9065196176336336152, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -9,17 +9,18 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler, IPointerMove
 
     [SerializeField] private UIInputDetector _inputDetector;
 
-    private Player _player;
     private Vector2 _middlePosition;
     private bool _isPointerDown;
     private Vector2 _initialPosition;
+
+    public Player Player { get; private set; }
 
     public void Initialize()
     {
         _initialPosition = transform.position;
         UpdateMiddlePosition();
         
-        _player = FindObjectOfType<Player>();
+        Player = FindObjectOfType<Player>();
         
         _inputDetector.PointerDown +=InputDetector_OnPointerDown;
         _inputDetector.PointerUp +=InputDetector_OnPointerUp;
@@ -67,20 +68,20 @@ public class PlayerController : MonoBehaviour, IPointerDownHandler, IPointerMove
 
         if (!moveOnX && !moveOnY)
         {
-            _player.StopMoving();
+            Player.StopMoving();
             return;
         }
 
         var moveVector = new Vector3(xDifference, 0, yDifference);
         moveVector.Normalize();
         
-        _player.Move(moveVector);
+        Player.Move(moveVector);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         _isPointerDown = false;
-        _player.StopMoving();
+        Player.StopMoving();
 
         transform.position = _initialPosition;
         UpdateMiddlePosition();

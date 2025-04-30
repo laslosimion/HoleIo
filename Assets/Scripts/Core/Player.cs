@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     private const float SpeedMultiplier = 0.035f;
     private const float ScaleIncreaseDeMultiplier = 35f;
+
+    public event Action<Obstacle> OnObstacleCollected;
     
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private BoxCollider _boxCollider;
@@ -62,6 +64,8 @@ public class Player : MonoBehaviour
             otherCollider.GetComponent<Rigidbody>().isKinematic = false;
 
         IncreaseSize(other.transform.localScale.x, other.transform.localScale.z);
+
+        OnObstacleCollected?.Invoke(other.gameObject.GetComponent<Obstacle>());
     }
 
     private void IncreaseSize(float x, float y)

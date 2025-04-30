@@ -2,7 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Level : MonoBehaviour, IRuntimeInitializable
+public class Level : MonoBehaviour, IRuntimeInitializable
 {
-    public abstract void Initialize();
+    [SerializeField] private LevelInfo _levelInfo;
+
+    public LevelInfo LevelInfo => _levelInfo;
+    
+    public void Initialize()
+    {
+        
+    }
 }

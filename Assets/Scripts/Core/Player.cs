@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private const float SpeedDeMultiplier = 1000f;
+    private const float SpeedMultiplier = 0.035f;
     private const float ScaleIncreaseDeMultiplier = 35f;
     
     [SerializeField] private Rigidbody _rigidbody;
@@ -17,8 +17,8 @@ public class Player : MonoBehaviour
     {
         _rigidbody.isKinematic = false;
         
-        _xMoveSpeed = -offset.x / SpeedDeMultiplier;
-        _zMoveSpeed = -offset.z / SpeedDeMultiplier;
+        _xMoveSpeed = -offset.x * SpeedMultiplier;
+        _zMoveSpeed = -offset.z * SpeedMultiplier;
     }
 
     public void StopMoving()

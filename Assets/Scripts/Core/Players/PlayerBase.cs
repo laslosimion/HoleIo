@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public abstract class PlayerBase : MonoBehaviour
 {
-    private const float SpeedMultiplier = 0.035f;
-    private const float ScaleIncreaseDeMultiplier = 15f;
-
     public event Action<Obstacle> OnObstacleCollected;
-    
+
+    [SerializeField] private PlayerInfo _playerInfo;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private BoxCollider _boxCollider;
     
@@ -19,8 +16,8 @@ public class Player : MonoBehaviour
     {
         _rigidbody.isKinematic = false;
         
-        _xMoveSpeed = -offset.x * SpeedMultiplier;
-        _zMoveSpeed = -offset.z * SpeedMultiplier;
+        _xMoveSpeed = -offset.x * _playerInfo.SpeedMultiplier;
+        _zMoveSpeed = -offset.z * _playerInfo.SpeedMultiplier;
     }
 
     public void StopMoving()
@@ -72,7 +69,7 @@ public class Player : MonoBehaviour
     private void IncreaseSize(float x, float y)
     {
         var localScale = transform.localScale;
-        localScale = new Vector3(localScale.x + x / ScaleIncreaseDeMultiplier, localScale.y + y / ScaleIncreaseDeMultiplier, localScale.z);
+        localScale = new Vector3(localScale.x + x / _playerInfo.ScaleIncreaseDeMultiplier, localScale.y + y / _playerInfo.ScaleIncreaseDeMultiplier, localScale.z);
         
         transform.localScale = localScale;
     }

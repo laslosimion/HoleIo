@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private const float SpeedMultiplier = 0.035f;
-    private const float ScaleIncreaseDeMultiplier = 35f;
+    private const float ScaleIncreaseDeMultiplier = 15f;
 
     public event Action<Obstacle> OnObstacleCollected;
     
@@ -60,12 +60,13 @@ public class Player : MonoBehaviour
         else
             return;
 
-        if (otherCollider != null) 
-            otherCollider.GetComponent<Rigidbody>().isKinematic = false;
-
         IncreaseSize(other.transform.localScale.x, other.transform.localScale.z);
 
-        OnObstacleCollected?.Invoke(other.gameObject.GetComponent<Obstacle>());
+        var obstacle = other.gameObject.GetComponentInParent<Obstacle>();
+        obstacle.Fall();
+        obstacle.DisablePhysics(true);
+        
+        OnObstacleCollected?.Invoke(obstacle);
     }
 
     private void IncreaseSize(float x, float y)

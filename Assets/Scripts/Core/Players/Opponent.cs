@@ -10,8 +10,8 @@ public sealed class Opponent : PlayerBase
     /// </summary>
     public void AutoMove()
     {
-        xMoveSpeed = -Random.Range(-1f, 1f) * _playerInfo.SpeedMultiplier;
-        zMoveSpeed = -Random.Range(-1f, 1f) * _playerInfo.SpeedMultiplier;
+        xMoveSpeed = Random.Range(-1f, 1f) * _playerInfo.SpeedMultiplier;
+        zMoveSpeed = Random.Range(-1f, 1f) * _playerInfo.SpeedMultiplier;
 
         Invoke(nameof(AutoMove), Random.Range(MinTimeToChangeDirection, MaxTimeToChangeDirection));
     }

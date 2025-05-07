@@ -5,31 +5,31 @@ public abstract class PlayerBase : MonoBehaviour
 {
     public event Action<Obstacle> OnObstacleCollected;
 
-    [SerializeField] private PlayerInfo _playerInfo;
+    [SerializeField] protected PlayerInfo _playerInfo;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private BoxCollider _boxCollider;
     
-    private float _xMoveSpeed;
-    private float _zMoveSpeed;
+    protected float xMoveSpeed;
+    protected float zMoveSpeed;
 
     public void Move(Vector3 offset)
     {
         _rigidbody.isKinematic = false;
         
-        _xMoveSpeed = -offset.x * _playerInfo.SpeedMultiplier;
-        _zMoveSpeed = -offset.z * _playerInfo.SpeedMultiplier;
+        xMoveSpeed = -offset.x * _playerInfo.SpeedMultiplier;
+        zMoveSpeed = -offset.z * _playerInfo.SpeedMultiplier;
     }
 
-    public void StopMoving()
+    public virtual void StopMoving()
     {
-        _xMoveSpeed = _zMoveSpeed = 0;
+        xMoveSpeed = zMoveSpeed = 0;
         
         _rigidbody.isKinematic = true;
     }
 
     private void Update()
     {
-        transform.position += new Vector3(_xMoveSpeed, 0, _zMoveSpeed);
+        transform.position += new Vector3(xMoveSpeed, 0, zMoveSpeed);
     }
 
     private void OnCollisionStay(Collision other)

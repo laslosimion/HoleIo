@@ -10,6 +10,7 @@ public class Play : State
     
     private int _currentLevelCounter = 0;
     private int _currentPoints;
+    private Opponent[] _opponents;
     
     public override void Begin()
     {
@@ -19,6 +20,12 @@ public class Play : State
         level.Initialize();
         _playerController.Initialize();
         _playerController.Player.OnObstacleCollected +=Player_OnObstacleCollected;
+
+        _opponents = FindObjectsOfType<Opponent>();
+        foreach (var item in _opponents)
+        {
+            item.AutoMove();
+        }
         
         _timer.OnTimePassed +=Timer_OnTimePassed;
         _timer.Run(level.LevelInfo.seconds);
@@ -53,6 +60,11 @@ public class Play : State
     {
         _playerController.Player.OnObstacleCollected -=Player_OnObstacleCollected;
         _timer.OnTimePassed -=Timer_OnTimePassed;
+        
+        foreach (var item in _opponents)
+        {
+            item.StopMoving();
+        }
         
         _timer.Stop();
     }

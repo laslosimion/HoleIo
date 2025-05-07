@@ -5,6 +5,9 @@ public sealed class Opponent : PlayerBase
     private const float MinTimeToChangeDirection = 5;
     private const float MaxTimeToChangeDirection = 10;
     
+    /// <summary>
+    /// ToDo: Improve system design by better encapsulating player base.
+    /// </summary>
     public void AutoMove()
     {
         xMoveSpeed = -Random.Range(-1f, 1f) * _playerInfo.SpeedMultiplier;

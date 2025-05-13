@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe846abe161b5a4fb64c568923400ee, type: 3}
   m_Name: Opponent
   m_EditorClassIdentifier: 
-  SpeedMultiplier: 0.035
+  SpeedMultiplier: 1.5
   ScaleIncreaseDeMultiplier: 15

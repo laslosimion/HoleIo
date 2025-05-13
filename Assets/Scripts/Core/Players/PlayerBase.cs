@@ -29,7 +29,7 @@ public abstract class PlayerBase : MonoBehaviour
 
     private void Update()
     {
-        transform.position += new Vector3(xMoveSpeed, 0, zMoveSpeed);
+        transform.position += new Vector3(xMoveSpeed * Time.deltaTime, 0, zMoveSpeed* Time.deltaTime);
     }
 
     private void OnCollisionStay(Collision other)

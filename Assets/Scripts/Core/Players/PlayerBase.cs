@@ -3,14 +3,21 @@ using UnityEngine;
 
 public abstract class PlayerBase : MonoBehaviour
 {
+    private const int LevelIncreaseObstaclesRequirement = 3;
+    
     public event Action<Obstacle> OnObstacleCollected;
+    public event Action<Opponent> OnOpponentCollected; 
 
     [SerializeField] protected PlayerInfo _playerInfo;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private BoxCollider _boxCollider;
     
+    public int Level { get; private set; }
+    
     protected float xMoveSpeed;
     protected float zMoveSpeed;
+
+    private int _obstaclesCounter;
 
     public void Move(Vector3 offset)
     {
@@ -56,6 +63,9 @@ public abstract class PlayerBase : MonoBehaviour
         {
             if (_boxCollider.Contains(leftBottomBackPoint) || _boxCollider.Contains(rightBottomFrontPoint))
             {
+                OnOpponentCollected?.Invoke(opponent);
+                
+                Level++;
                 other.gameObject.SetActive(false);
                 return;
             }
@@ -70,6 +80,10 @@ public abstract class PlayerBase : MonoBehaviour
 
         IncreaseSize(other.transform.localScale.x, other.transform.localScale.z);
 
+        _obstaclesCounter++;
+        if (_obstaclesCounter % LevelIncreaseObstaclesRequirement == 0)
+            Level++;
+        
         obstacle.Fall();
         obstacle.DisablePhysics(true);
 

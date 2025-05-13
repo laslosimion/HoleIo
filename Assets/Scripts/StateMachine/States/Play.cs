@@ -20,6 +20,7 @@ public class Play : State
         level.Initialize();
         _playerController.Initialize();
         _playerController.Player.OnObstacleCollected +=Player_OnObstacleCollected;
+        _playerController.Player.OnOpponentCollected +=Player_OnOpponentCollected;
 
         _opponents = FindObjectsOfType<Opponent>();
         foreach (var item in _opponents)
@@ -33,7 +34,12 @@ public class Play : State
         _currentPoints = 0;
         UpdatePointsText();
     }
-    
+
+    private void Player_OnOpponentCollected(Opponent opponent)
+    {
+        _currentPoints += opponent.Level;
+    }
+
     private void Player_OnObstacleCollected(Obstacle obstacle)
     {
         _currentPoints += obstacle.ObstacleInfo.value;
@@ -59,6 +65,8 @@ public class Play : State
     public override void End()
     {
         _playerController.Player.OnObstacleCollected -=Player_OnObstacleCollected;
+        _playerController.Player.OnOpponentCollected -=Player_OnOpponentCollected;
+        
         _timer.OnTimePassed -=Timer_OnTimePassed;
         
         foreach (var item in _opponents)

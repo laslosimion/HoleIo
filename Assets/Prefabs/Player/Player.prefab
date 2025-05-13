@@ -113,6 +113,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 273b4685479c5764fbb574f3032ebf43, type: 2}
     - target: {fileID: 5858558012645510238, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5858558012645510238, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5858558012645510238, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 90
       objectReference: {fileID: 0}

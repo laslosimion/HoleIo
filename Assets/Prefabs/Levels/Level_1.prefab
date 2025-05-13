@@ -3576,10 +3576,6 @@ PrefabInstance:
       value: Opponent
       objectReference: {fileID: 0}
     - target: {fileID: 8892076763861063603, guid: fed23f539c7d4e5408a6dfb47e5f19ad, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.6499999
-      objectReference: {fileID: 0}
-    - target: {fileID: 8892076763861063603, guid: fed23f539c7d4e5408a6dfb47e5f19ad, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
       objectReference: {fileID: 0}
@@ -6942,10 +6938,6 @@ PrefabInstance:
     - target: {fileID: 3326818587030584841, guid: b7eb46a88fe6feb45b102c25eeaee3e1, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8560899598819907335, guid: b7eb46a88fe6feb45b102c25eeaee3e1, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.6499999
       objectReference: {fileID: 0}
     - target: {fileID: 8560899598819907335, guid: b7eb46a88fe6feb45b102c25eeaee3e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

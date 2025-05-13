@@ -35,35 +35,41 @@ public abstract class PlayerBase : MonoBehaviour
     private void OnCollisionStay(Collision other)
     {
         var otherCollider = other.collider as BoxCollider;
-
-        if (otherCollider != null)
-        {
-            var trans = otherCollider.transform;
-            var min = otherCollider.center - otherCollider.size * 0.5f;
-            var max = otherCollider.center + otherCollider.size * 0.5f;
-
-            var leftBottomBackPoint = trans.TransformPoint(new Vector3(min.x, min.y, min.z));
-            // var P001 = trans.TransformPoint(new Vector3(min.x, min.y, max.z));
-            // var P010 = trans.TransformPoint(new Vector3(min.x, max.y, min.z));
-            // var P011 = trans.TransformPoint(new Vector3(min.x, max.y, max.z));
-            // var P100 = trans.TransformPoint(new Vector3(max.x, min.y, min.z));
-            var rightBottomFrontPoint = trans.TransformPoint(new Vector3(max.x, min.y, max.z));
-            // var P110 = trans.TransformPoint(new Vector3(max.x, max.y, min.z));
-            // var P111 = trans.TransformPoint(new Vector3(max.x, max.y, max.z));
-
-            if (!_boxCollider.Contains(leftBottomBackPoint) || !_boxCollider.Contains(rightBottomFrontPoint))
-                return;
-        }
-        else
+        if (!otherCollider) 
             return;
+        
+        var otherTransform = otherCollider.transform;
+        var min = otherCollider.center - otherCollider.size * 0.5f;
+        var max = otherCollider.center + otherCollider.size * 0.5f;
+        var leftBottomBackPoint = otherTransform.TransformPoint(new Vector3(min.x, min.y, min.z));
+        var rightBottomFrontPoint = otherTransform.TransformPoint(new Vector3(max.x, min.y, max.z));
+        // var P001 = otherTransform.TransformPoint(new Vector3(min.x, min.y, max.z));
+        // var P010 = otherTransform.TransformPoint(new Vector3(min.x, max.y, min.z));
+        // var P011 = otherTransform.TransformPoint(new Vector3(min.x, max.y, max.z));
+        // var P100 = otherTransform.TransformPoint(new Vector3(max.x, min.y, min.z));
 
-        var otherPlayer = other.gameObject.GetComponent<PlayerBase>();
-        if (!otherPlayer)
-            IncreaseSize(other.transform.localScale.x, other.transform.localScale.z);
+        // var P110 = otherTransform.TransformPoint(new Vector3(max.x, max.y, min.z));
+        // var P111 = otherTransform.TransformPoint(new Vector3(max.x, max.y, max.z));
+
+        var opponent = other.gameObject.GetComponent<Opponent>();
+        if (opponent)
+        {
+            if (_boxCollider.Contains(leftBottomBackPoint) || _boxCollider.Contains(rightBottomFrontPoint))
+            {
+                other.gameObject.SetActive(false);
+                return;
+            }
+        }
 
         var obstacle = other.gameObject.GetComponentInParent<Obstacle>();
-        if (!obstacle) return;
-        
+        if (!obstacle)
+            return;
+            
+        if (!_boxCollider.Contains(leftBottomBackPoint) || !_boxCollider.Contains(rightBottomFrontPoint))
+            return;
+
+        IncreaseSize(other.transform.localScale.x, other.transform.localScale.z);
+
         obstacle.Fall();
         obstacle.DisablePhysics(true);
 

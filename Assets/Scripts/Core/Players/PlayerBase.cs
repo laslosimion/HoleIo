@@ -57,12 +57,16 @@ public abstract class PlayerBase : MonoBehaviour
         else
             return;
 
-        IncreaseSize(other.transform.localScale.x, other.transform.localScale.z);
+        var otherPlayer = other.gameObject.GetComponent<PlayerBase>();
+        if (!otherPlayer)
+            IncreaseSize(other.transform.localScale.x, other.transform.localScale.z);
 
         var obstacle = other.gameObject.GetComponentInParent<Obstacle>();
+        if (!obstacle) return;
+        
         obstacle.Fall();
         obstacle.DisablePhysics(true);
-        
+
         OnObstacleCollected?.Invoke(obstacle);
     }
 

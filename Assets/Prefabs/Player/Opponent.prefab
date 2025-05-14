@@ -95,6 +95,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 605578603138213197}
   _boxCollider: {fileID: 6434342574893236889}
   _mainRenderer: {fileID: 5859985292917345732}
+  _secondaryRenderer: {fileID: 7399554601113885669}
 --- !u!212 &5859985292917345732 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 8896894457843717673, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
@@ -103,5 +104,10 @@ SpriteRenderer:
 --- !u!65 &6434342574893236889 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 8314110794159593844, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
+  m_PrefabInstance: {fileID: 3038460580532886509}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7399554601113885669 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5519927119522594824, guid: 02fb61c6da400b24f8b1bdf716a6d5a2, type: 3}
   m_PrefabInstance: {fileID: 3038460580532886509}
   m_PrefabAsset: {fileID: 0}

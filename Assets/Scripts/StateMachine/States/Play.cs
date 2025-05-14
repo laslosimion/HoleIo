@@ -7,7 +7,7 @@ public class Play : State
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private Timer _timer;
     [SerializeField] private TMP_Text _points;
-    [SerializeField] private OpponentUITracker _opponentUITracker;
+    [SerializeField] private OpponentsUITrackers opponentsUITrackers;
     
     private int _currentLevelCounter = 0;
     private int _currentPoints;
@@ -29,7 +29,7 @@ public class Play : State
             item.AutoMove();
         }
         
-        _opponentUITracker.Refresh(_opponents);
+        opponentsUITrackers.Refresh(_opponents);
         
         _timer.OnTimePassed +=Timer_OnTimePassed;
         _timer.Run(level.LevelInfo.seconds);

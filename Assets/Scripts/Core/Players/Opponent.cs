@@ -6,9 +6,11 @@ public sealed class Opponent : PlayerBase
     private const float MinTimeToChangeDirection = 5;
     private const float MaxTimeToChangeDirection = 10;
 
-    [SerializeField] private Renderer _mainRenderer;
+    [SerializeField] private SpriteRenderer _mainRenderer;
+    [SerializeField] private SpriteRenderer _secondaryRenderer;
 
-    public Renderer MainRenderer => _mainRenderer;
+    public SpriteRenderer MainRenderer => _mainRenderer;
+    public SpriteRenderer SecondaryRenderer => _secondaryRenderer;
     
     /// <summary>
     /// ToDo: Improve system design by better encapsulating player base.

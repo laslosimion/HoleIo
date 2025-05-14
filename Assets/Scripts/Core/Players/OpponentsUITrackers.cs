@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpponentUITracker : MonoBehaviour
+public class OpponentsUITrackers : MonoBehaviour
 {
     [SerializeField] private GameObject _tracker;
 
     private Opponent[] _opponents;
 
-    private Dictionary<Opponent, GameObject> _trackers = new();
+    private readonly Dictionary<Opponent, GameObject> _trackers = new();
     private Camera _camera;
 
     public void Refresh(Opponent[] opponents)
@@ -17,6 +17,27 @@ public class OpponentUITracker : MonoBehaviour
     }
 
     private void Update()
+    {
+        UpdateTrackers();
+
+        UpdateArrows();
+    }
+
+    private void UpdateArrows()
+    {
+        foreach (var item in _trackers)
+        {
+            var screenPos = _camera.WorldToScreenPoint(item.Key.transform.position);
+            var rectTransform = item.Value.GetComponent<RectTransform>();
+            var arrowPos = rectTransform.position;
+
+            var direction = screenPos - arrowPos;
+
+            rectTransform.up = direction;
+        }
+    }
+
+    private void UpdateTrackers()
     {
         foreach (var item in _opponents)
         {
@@ -30,22 +51,13 @@ public class OpponentUITracker : MonoBehaviour
                     break;
             }
         }
-
-        foreach (var item in _trackers)
-        {
-            var screenPos = _camera.WorldToScreenPoint(item.Key.transform.position);
-            var rectTransform = item.Value.GetComponent<RectTransform>();
-            var arrowPos = rectTransform.position;
-            
-            var direction = screenPos - arrowPos;
-            
-            rectTransform.up = direction;
-        }
     }
 
     private void CreateTracker(Opponent opponent)
     {
         var trackerInstance = Instantiate(_tracker, transform);
+        var trackerComponent = trackerInstance.GetComponent<Tracker>();
+        trackerComponent.SetColor(opponent.SecondaryRenderer.color);
 
         _trackers.Add(opponent, trackerInstance);
     }

@@ -254,7 +254,7 @@ MonoBehaviour:
   _playerController: {fileID: 139888794}
   _timer: {fileID: 1142789851}
   _points: {fileID: 692326277}
-  _opponentUITracker: {fileID: 7823172884833810063}
+  opponentsUITrackers: {fileID: 7823172884833810063}
 --- !u!114 &1970573946
 MonoBehaviour:
   m_ObjectHideFlags: 0

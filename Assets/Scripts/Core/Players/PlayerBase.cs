@@ -76,7 +76,7 @@ public abstract class PlayerBase : MonoBehaviour
         if (!obstacle)
             return;
             
-        if (!_boxCollider.Contains(leftBottomBackPoint) && !_boxCollider.Contains(rightBottomFrontPoint))
+        if (!_boxCollider.Contains(leftBottomBackPoint) || !_boxCollider.Contains(rightBottomFrontPoint))
             return;
 
         IncreaseSize(other.transform.localScale.x, otherTransform.localScale.z);

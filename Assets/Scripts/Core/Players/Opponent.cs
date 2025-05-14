@@ -1,9 +1,14 @@
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 public sealed class Opponent : PlayerBase
 {
     private const float MinTimeToChangeDirection = 5;
     private const float MaxTimeToChangeDirection = 10;
+
+    [SerializeField] private Renderer _mainRenderer;
+
+    public Renderer MainRenderer => _mainRenderer;
     
     /// <summary>
     /// ToDo: Improve system design by better encapsulating player base.
